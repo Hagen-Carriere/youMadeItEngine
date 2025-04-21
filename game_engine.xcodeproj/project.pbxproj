@@ -1,0 +1,377 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3B01AAC52D5A3F9A000B849F /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B01AAC42D5A3F9A000B849F /* SDL2.framework */; };
+		3B01AAC62D5A3F9A000B849F /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B01AAC42D5A3F9A000B849F /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3B01AAC92D5A3FAA000B849F /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B01AAC82D5A3FAA000B849F /* SDL2_image.framework */; };
+		3B01AACA2D5A3FAA000B849F /* SDL2_image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B01AAC82D5A3FAA000B849F /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3B01AACC2D5A3FBB000B849F /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B01AACB2D5A3FBB000B849F /* SDL2_mixer.framework */; };
+		3B01AACD2D5A3FBB000B849F /* SDL2_mixer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B01AACB2D5A3FBB000B849F /* SDL2_mixer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3B01AACF2D5A3FC7000B849F /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B01AACE2D5A3FC7000B849F /* SDL2_ttf.framework */; };
+		3B01AAD02D5A3FC7000B849F /* SDL2_ttf.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B01AACE2D5A3FC7000B849F /* SDL2_ttf.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3B01AAC72D5A3F9A000B849F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3B01AAD02D5A3FC7000B849F /* SDL2_ttf.framework in Embed Frameworks */,
+				3B01AACD2D5A3FBB000B849F /* SDL2_mixer.framework in Embed Frameworks */,
+				3B01AAC62D5A3F9A000B849F /* SDL2.framework in Embed Frameworks */,
+				3B01AACA2D5A3FAA000B849F /* SDL2_image.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3BDF00792D471C61003BEB38 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		3B01AAC42D5A3F9A000B849F /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = includes/mac/SDL2/lib/SDL2.framework; sourceTree = "<group>"; };
+		3B01AAC82D5A3FAA000B849F /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = includes/mac/SDL2_image/lib/SDL2_image.framework; sourceTree = "<group>"; };
+		3B01AACB2D5A3FBB000B849F /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = includes/mac/SDL2_mixer/lib/SDL2_mixer.framework; sourceTree = "<group>"; };
+		3B01AACE2D5A3FC7000B849F /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = includes/mac/SDL2_ttf/lib/SDL2_ttf.framework; sourceTree = "<group>"; };
+		3BDF007B2D471C61003BEB38 /* game_engine */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = game_engine; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		3BDF007D2D471C61003BEB38 /* game_engine */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = game_engine;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3BDF00782D471C61003BEB38 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B01AACF2D5A3FC7000B849F /* SDL2_ttf.framework in Frameworks */,
+				3B01AACC2D5A3FBB000B849F /* SDL2_mixer.framework in Frameworks */,
+				3B01AAC52D5A3F9A000B849F /* SDL2.framework in Frameworks */,
+				3B01AAC92D5A3FAA000B849F /* SDL2_image.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3B01AAC32D5A3F9A000B849F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3B01AACE2D5A3FC7000B849F /* SDL2_ttf.framework */,
+				3B01AACB2D5A3FBB000B849F /* SDL2_mixer.framework */,
+				3B01AAC82D5A3FAA000B849F /* SDL2_image.framework */,
+				3B01AAC42D5A3F9A000B849F /* SDL2.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3BDF00722D471C61003BEB38 = {
+			isa = PBXGroup;
+			children = (
+				3BDF007D2D471C61003BEB38 /* game_engine */,
+				3B01AAC32D5A3F9A000B849F /* Frameworks */,
+				3BDF007C2D471C61003BEB38 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3BDF007C2D471C61003BEB38 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3BDF007B2D471C61003BEB38 /* game_engine */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3BDF007A2D471C61003BEB38 /* game_engine */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3BDF00822D471C61003BEB38 /* Build configuration list for PBXNativeTarget "game_engine" */;
+			buildPhases = (
+				3BDF00772D471C61003BEB38 /* Sources */,
+				3BDF00782D471C61003BEB38 /* Frameworks */,
+				3BDF00792D471C61003BEB38 /* CopyFiles */,
+				3B01AAC72D5A3F9A000B849F /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				3BDF007D2D471C61003BEB38 /* game_engine */,
+			);
+			name = game_engine;
+			packageProductDependencies = (
+			);
+			productName = game_engine;
+			productReference = 3BDF007B2D471C61003BEB38 /* game_engine */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3BDF00732D471C61003BEB38 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					3BDF007A2D471C61003BEB38 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+				};
+			};
+			buildConfigurationList = 3BDF00762D471C61003BEB38 /* Build configuration list for PBXProject "game_engine" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3BDF00722D471C61003BEB38;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 3BDF007C2D471C61003BEB38 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3BDF007A2D471C61003BEB38 /* game_engine */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3BDF00772D471C61003BEB38 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		3BDF00802D471C61003BEB38 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				"HEADER_SEARCH_PATHS[arch=*]" = game_engine;
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "game_engine/glm-0.9.9.8/glm-0.9.9.8";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		3BDF00812D471C61003BEB38 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				"HEADER_SEARCH_PATHS[arch=*]" = game_engine;
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "game_engine/glm-0.9.9.8/glm-0.9.9.8";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		3BDF00832D471C61003BEB38 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/includes/mac/SDL2/lib",
+					"$(PROJECT_DIR)/includes/mac/SDL2_image/lib",
+					"$(PROJECT_DIR)/includes/mac/SDL2_mixer/lib",
+					"$(PROJECT_DIR)/includes/mac/SDL2_ttf/lib",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(ProjectDir)includes/",
+					"$(ProjectDir)includes/glm-0.9.9.8/glm-0.9.9.8",
+					"$(ProjectDir)includes/rapidjson-1.1.0/include/",
+					"$(ProjectDir)includes/mac/",
+					"$(ProjectDir)includes/mac/SDL2/",
+					"$(ProjectDir)includes/box2d-2.4.1/include/",
+					"$(ProjectDir)includes/box2d-2.4.1/src/",
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3BDF00842D471C61003BEB38 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/includes/mac/SDL2/lib",
+					"$(PROJECT_DIR)/includes/mac/SDL2_image/lib",
+					"$(PROJECT_DIR)/includes/mac/SDL2_mixer/lib",
+					"$(PROJECT_DIR)/includes/mac/SDL2_ttf/lib",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(ProjectDir)includes/",
+					"$(ProjectDir)includes/glm-0.9.9.8/glm-0.9.9.8/",
+					"$(ProjectDir)includes/rapidjson-1.1.0/include/",
+					"$(ProjectDir)includes/mac/",
+					"$(ProjectDir)includes/mac/SDL2/",
+					"$(ProjectDir)includes/mac/SDL2/",
+					"$(ProjectDir)includes/box2d-2.4.1/src/",
+					"$(ProjectDir)includes/box2d-2.4.1/include/",
+					"$(ProjectDir)includes/LuaBridge/",
+					"$(ProjectDir)includes/lua/",
+				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(ProjectDir)includes/mac/SDL2/lib/",
+					"$(ProjectDir)includes/mac/SDL2_image/lib/",
+					"$(ProjectDir)includes/mac/SDL2_mixer/lib/",
+					"$(ProjectDir)includes/mac/SDL2_ttf/lib/",
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3BDF00762D471C61003BEB38 /* Build configuration list for PBXProject "game_engine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3BDF00802D471C61003BEB38 /* Debug */,
+				3BDF00812D471C61003BEB38 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3BDF00822D471C61003BEB38 /* Build configuration list for PBXNativeTarget "game_engine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3BDF00832D471C61003BEB38 /* Debug */,
+				3BDF00842D471C61003BEB38 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3BDF00732D471C61003BEB38 /* Project object */;
+}
