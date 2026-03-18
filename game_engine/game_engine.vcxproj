@@ -112,10 +112,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>..\includes\box2d-2.4.1\src;..\includes\box2d-2.4.1\include;..\includes\windows\SDL2_ttf;..\includes\windows\SDL2_mixer;..\includes\windows\SDL2_image;..\includes\windows\SDL2;..\includes\windows;..\includes\rapidjson-1.1.0\include;..\includes\glm-0.9.9.8\glm-0.9.9.8;..\includes\lua;..\includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\includes\windows\SDL2_ttf\lib;..\includes\windows\SDL2_mixer\lib;..\includes\windows\SDL2_image\lib;..\includes\windows\SDL2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

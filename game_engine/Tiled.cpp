@@ -1,4 +1,4 @@
-#include "tiled.h"
+#include "Tiled.h"
 
 Tiled* Tiled::instance = nullptr;
 
