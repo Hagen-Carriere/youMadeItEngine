@@ -1,0 +1,12 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+    "-v",
+    "--tb=short",
+    "--junitxml=reports/test_results.xml",
+]
+
+[project]
+name = "youmadeit-engine-tests"
+version = "0.1.0"
+description = "Automated test suite for youMadeItEngine"

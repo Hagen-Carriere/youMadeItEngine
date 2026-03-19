@@ -1,0 +1,53 @@
+# .github/workflows/test.yml
+# Continuous Integration — runs the full pytest suite on every push and PR.
+#
+# This workflow validates all engine data files, physics math, component
+# wiring, and (optionally) regression baselines without compiling the engine.
+#
+# Test results are uploaded as JUnit XML artifacts for review.
+
+name: Engine Test Suite
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'game_engine/resources/**'
+      - 'game_engine/tests/**'
+      - 'game_engine/pyproject.toml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'game_engine/resources/**'
+      - 'game_engine/tests/**'
+      - 'game_engine/pyproject.toml'
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: game_engine
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pytest
+
+      - name: Run test suite
+        run: python -m pytest tests/ -v --junitxml=reports/test_results.xml
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: game_engine/reports/test_results.xml
