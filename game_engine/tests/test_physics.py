@@ -426,16 +426,23 @@ class TestFixturePropertyMappings:
         if rb is None:
             pytest.skip("Player template has no Rigidbody")
 
-        # Player uses a circle collider for smooth rolling
-        assert rb.get("collider_type") == "circle", (
-            "Player should use circle collider for smooth platformer physics"
+        # Player uses a box collider for sliding movement (no rolling)
+        assert rb.get("collider_type") == "box", (
+            "Player should use box collider for slide-based movement"
         )
         # Density affects mass → affects how forces feel
         density = rb.get("density", 1.0)
         assert density > 0, f"Player density must be positive, got {density}"
-        # Radius must be positive
-        radius = rb.get("radius", 0.5)
-        assert radius > 0, f"Player radius must be positive, got {radius}"
+        # Width and height must be positive
+        width = rb.get("width", 1.0)
+        height = rb.get("height", 1.0)
+        assert width > 0, f"Player width must be positive, got {width}"
+        assert height > 0, f"Player height must be positive, got {height}"
+        # Angular friction should be high to prevent rolling
+        angular = rb.get("angular_friction", 0.3)
+        assert angular >= 10.0, (
+            f"Player angular_friction should be high to prevent rolling, got {angular}"
+        )
 
     def test_kinematic_bodies_in_templates(self, all_templates):
         """
@@ -468,9 +475,9 @@ class TestGameplayPhysics:
 
     def test_bouncy_box_preserves_horizontal_velocity(self):
         """
-        BouncyBox.lua: new_vel = Vector2(current_vel.x, -15)
+        BouncyBox.lua: new_vel = Vector2(vel.x, -12)
         The bounce should preserve horizontal velocity (x unchanged)
-        and override vertical velocity to -15 (upward impulse).
+        and override vertical velocity to -12 (upward impulse).
         """
         test_velocities = [
             (5.0, 10.0),    # moving right and falling
@@ -481,16 +488,16 @@ class TestGameplayPhysics:
         for vx, vy in test_velocities:
             # After bounce
             new_vx = vx       # x preserved
-            new_vy = -15.0    # y overridden
+            new_vy = -12.0    # y overridden
             assert new_vx == vx, "Bounce must preserve horizontal velocity"
-            assert new_vy == -15.0, "Bounce must set vertical velocity to -15"
+            assert new_vy == -12.0, "Bounce must set vertical velocity to -12"
 
     def test_bounce_velocity_is_upward(self):
         """
         In SDL/Box2D screen coordinates, negative Y is up.
-        The bounce velocity of -15 should send the player upward.
+        The bounce velocity of -12 should send the player upward.
         """
-        bounce_vy = -15.0
+        bounce_vy = -12.0
         assert bounce_vy < 0, (
             "Bounce velocity must be negative (upward in screen coords)"
         )
@@ -498,13 +505,13 @@ class TestGameplayPhysics:
     def test_tile_grid_spawn_positions(self):
         """
         GameManager.lua spawns actors at tile grid positions.
-        Tile (x, y) in the grid maps to world position (x, y) directly.
+        Tile (col, row) in the grid maps to world position (col, row) directly.
         Verify the grid-to-world mapping is identity (1:1 tile units).
         """
-        # The stage grid is 20x20, 1-indexed in Lua
-        # Tile code 2 (player) is at row 17, col 3 in the grid
-        player_grid_pos = (3, 17)  # (x, y) from the Lua grid
-        expected_world_pos = (3.0, 17.0)  # direct mapping
+        # The level grid is 10x10, 1-indexed in Lua
+        # Tile code 2 (player) is at row 9, col 3 in the grid
+        player_grid_pos = (3, 9)  # (x, y) from the Lua grid
+        expected_world_pos = (3.0, 9.0)  # direct mapping
 
         assert player_grid_pos[0] == expected_world_pos[0]
         assert player_grid_pos[1] == expected_world_pos[1]
@@ -514,33 +521,23 @@ class TestGameplayPhysics:
         Verify the player spawn point by scanning the actual stage data.
         Tile code 2 = player spawn.
         """
-        # Stage data from GameManager.lua (1-indexed rows/cols)
-        stage1 = [
-            [1,0,0,0,0,4,4,4,1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,4,4,4,1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,4,4,4,1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1],
-            [1,1,1,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,1,1,1,1,0,1,1,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1],
-            [1,1,1,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1],
-            [1,1,1,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1],
-            [1,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,1],
-            [1,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,1],
-            [1,1,1,1,1,1,1,1,0,0,1,1,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,1,0,0,1,1,3,3,1,1,1,0,0,1],
-            [1,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1,0,0,0,1],
-            [1,0,2,0,0,0,0,0,1,1,0,0,0,0,1,0,0,0,1,1],
-            [1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1],
-            [1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1],
-            [1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1],
+        # Level data from GameManager.lua (1-indexed rows/cols)
+        level = [
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 4, 4, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 1, 1, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 1, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 3, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
+            [1, 0, 2, 0, 0, 0, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         ]
 
         # Find tile code 2 (player spawn)
         player_positions = []
-        for y_idx, row in enumerate(stage1):
+        for y_idx, row in enumerate(level):
             for x_idx, tile in enumerate(row):
                 if tile == 2:
                     # Lua is 1-indexed, so world pos = (x_idx+1, y_idx+1)
@@ -549,8 +546,8 @@ class TestGameplayPhysics:
         assert len(player_positions) == 1, (
             f"Expected exactly 1 player spawn, found {len(player_positions)}"
         )
-        assert player_positions[0] == (3, 17), (
-            f"Player spawn at {player_positions[0]}, expected (3, 17)"
+        assert player_positions[0] == (3, 9), (
+            f"Player spawn at {player_positions[0]}, expected (3, 9)"
         )
 
     def test_tile_code_coverage(self):
@@ -558,32 +555,22 @@ class TestGameplayPhysics:
         Verify all tile codes in the stage map have handlers in GameManager.
         Known codes: 0=nothing, 1=KinematicBox, 2=Player, 3=BouncyBox, 4=VictoryBox
         """
-        stage1 = [
-            [1,0,0,0,0,4,4,4,1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,4,4,4,1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,4,4,4,1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1],
-            [1,1,1,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,1,1,1,1,0,1,1,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1],
-            [1,1,1,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1],
-            [1,1,1,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1],
-            [1,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,1],
-            [1,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,1],
-            [1,1,1,1,1,1,1,1,0,0,1,1,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,1,0,0,1,1,3,3,1,1,1,0,0,1],
-            [1,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1,0,0,0,1],
-            [1,0,2,0,0,0,0,0,1,1,0,0,0,0,1,0,0,0,1,1],
-            [1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1],
-            [1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1],
-            [1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1],
+        level = [
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 4, 4, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 1, 1, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 1, 1, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 3, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
+            [1, 0, 2, 0, 0, 0, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         ]
 
         known_codes = {0, 1, 2, 3, 4}
         used_codes = set()
-        for row in stage1:
+        for row in level:
             for tile in row:
                 used_codes.add(tile)
 
@@ -601,12 +588,12 @@ class TestGameplayPhysics:
 
     def test_keyboard_controls_force_application(self):
         """
-        KeyboardControls.lua applies horizontal force = speed (default 5)
-        and jump force = jump_power (default 350, applied as negative Y).
+        KeyboardControls.lua applies horizontal force = speed (default 4)
+        and jump force = jump_power (default 300, applied as negative Y).
         Verify the force values are reasonable for the physics scale.
         """
-        speed = 5          # from KeyboardControls.lua
-        jump_power = 350   # from KeyboardControls.lua
+        speed = 4          # from KeyboardControls.lua
+        jump_power = 300   # from KeyboardControls.lua
 
         # Horizontal force should be positive and reasonable
         assert speed > 0, "Movement speed must be positive"
@@ -633,10 +620,10 @@ class TestGameplayPhysics:
             "Ground check ray must point downward (positive Y)"
         )
         assert ray_distance > 0, "Ray distance must be positive"
-        # Distance of 1 unit should reach just past the player's
-        # circle collider (radius 0.45) to detect ground
-        player_radius = 0.45  # from Player.template
-        assert ray_distance > player_radius, (
+        # Distance of 1 unit should reach past the player's
+        # box collider half-height (0.6 / 2 = 0.3) to detect ground
+        player_half_height = 0.3  # from Player.template: height 0.6
+        assert ray_distance > player_half_height, (
             f"Ground ray distance ({ray_distance}) must exceed player "
-            f"radius ({player_radius}) to detect ground beneath the player"
+            f"half-height ({player_half_height}) to detect ground beneath the player"
         )

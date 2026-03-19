@@ -1,6 +1,5 @@
 
 build
-**/resources
 **/frames
 render_logger.txt
 user_input.txt

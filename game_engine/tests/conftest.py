@@ -17,17 +17,32 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 
 def _find_project_root() -> Path:
-    """Walk upward from this file until we find resources/ or game.config."""
-    candidate = Path(__file__).resolve().parent.parent
-    # Support both flat layout (files at root) and resources/ layout
-    if (candidate / "resources" / "game.config").exists():
-        return candidate
-    # Flat layout: game.config sits next to tests/
-    if (candidate / "game.config").exists():
-        return candidate
+    """
+    Locate the project root by searching for resources/game.config
+    or game.config. Checks multiple strategies to work on both local
+    machines and CI runners (GitHub Actions, Jenkins).
+    """
+    candidates = [
+        # 1. Standard: conftest.py is in tests/, project root is one up
+        Path(__file__).resolve().parent.parent,
+        # 2. CI: pytest may run from the working directory directly
+        Path.cwd(),
+    ]
+    # 3. Walk upward from conftest.py (handles nested repo structures)
+    walker = Path(__file__).resolve().parent
+    for _ in range(5):
+        walker = walker.parent
+        candidates.append(walker)
+
+    for candidate in candidates:
+        if (candidate / "resources" / "game.config").exists():
+            return candidate
+        if (candidate / "game.config").exists():
+            return candidate
+
     raise FileNotFoundError(
         "Could not locate project root. "
-        "Ensure tests/ is one directory below the project root."
+        "Ensure resources/game.config exists in the project directory."
     )
 
 

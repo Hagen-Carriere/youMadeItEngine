@@ -1,0 +1,19 @@
+{
+	"name": "goal",
+	"components": {
+		"1": {
+			"type": "SpriteRenderer",
+			"sprite": "goal_sprite",
+			"sorting_order": -999,
+			"a": 120
+		},
+		"2": {
+			"type": "Rigidbody",
+			"body_type": "kinematic",
+			"has_collider": false
+		},
+		"3": {
+			"type": "VictoryBox"
+		}
+	}
+}

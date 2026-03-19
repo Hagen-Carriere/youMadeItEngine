@@ -1,0 +1,15 @@
+{
+	"name": "wall",
+	"components": {
+		"1": {
+			"type": "SpriteRenderer",
+			"sprite": "wall_sprite",
+			"sorting_order": -999
+		},
+		"2": {
+			"type": "Rigidbody",
+			"body_type": "kinematic",
+			"has_trigger": false
+		}
+	}
+}
