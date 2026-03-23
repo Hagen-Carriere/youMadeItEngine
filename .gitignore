@@ -23,8 +23,8 @@ osx_build_derived_data
 **.JPG
 **.bmp
 **.BMP
-**.gif
-**.GIF
+# **.gif
+# **.GIF
 
 **.wav
 **.mp3
