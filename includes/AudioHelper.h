@@ -14,10 +14,11 @@
 
 class AudioHelper {
 	public:
+		#undef Mix_LoadWAV
 		static inline Mix_Chunk* Mix_LoadWAV(const char* file)
 		{
 			if (!IsAutograderMode())
-				return ::Mix_LoadWAV(file);
+				return ::Mix_LoadWAV_RW(SDL_RWFromFile(file, "rb"), 1);
 			else
 			{
 				if (std::filesystem::exists(file))
@@ -27,12 +28,13 @@ class AudioHelper {
 			}
 		}
 		
-		static inline int Mix_PlayChannel(int channel, Mix_Chunk *chunk, int loops)
+		#undef Mix_PlayChannel
+		static inline int Mix_PlayChannel(int channel, Mix_Chunk *chunk, int loops)		
 		{
 			std::cout << "(Mix_PlayChannel(" << channel << ",?," << loops << ") called on frame " << Helper::GetFrameNumber() << ")" << std::endl;
 			
 			if (!IsAutograderMode())
-				return ::Mix_PlayChannel(channel, chunk, loops);
+				return ::Mix_PlayChannelTimed(channel, chunk, loops, -1);
 			else
 			{
 				return channel;

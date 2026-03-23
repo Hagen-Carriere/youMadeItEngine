@@ -45,7 +45,7 @@ void Tiled::loadTileset(const std::string& source) {
 #ifdef _WIN32
     fopen_s(&file_pointer, source.c_str(), "rb");
 #else
-    file_pointer = fopen(path.c_str(), "rb");
+    file_pointer = fopen(source.c_str(), "rb");
 #endif
     char buffer[65536];
     rapidjson::FileReadStream stream(file_pointer, buffer, sizeof(buffer));
